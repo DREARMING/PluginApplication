@@ -11,14 +11,14 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.Process;
 import android.os.RemoteException;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.qihoo360.replugin.RePlugin;
+import com.qihoo360.replugin.loader.a.PluginAppCompatActivity;
 import com.qihoo360.replugin.model.PluginInfo;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends PluginAppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         init();
     }
 
@@ -39,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
         PluginInfo pluginInfo = RePlugin.getPluginInfo("plugin1");
         if(pluginInfo != null){
             Log.i(TAG, "plugin name : " + pluginInfo.getName() + " , plugin version : " + pluginInfo.getVersion());
-            tvPluginInfo.setText(pluginInfo.getName() + " v" + pluginInfo.getVersion());
+            tvPluginInfo.setText("pid : " + Process.myPid() + " , " + pluginInfo.getName() + " v" + pluginInfo.getVersion());
         }else{
             Log.i(TAG, "plugin null");
-            tvPluginInfo.setText("plugin null");
+            tvPluginInfo.setText("pid : " + Process.myPid() + " ,plugin null");
         }
 
         bindUpdateService();
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private void bindUpdateService() {
         Intent intent = new Intent();
         intent.setComponent(new ComponentName("com.mvcoder.hostapplication", "com.mvcoder.hostapplication.UpdateService"));
-        boolean bindSuccess =  bindService(intent, serviceConnection, 0);
+        boolean bindSuccess =  bindService(intent, serviceConnection, BIND_AUTO_CREATE);
         Log.i(TAG, "bind success " + bindSuccess);
     }
 
@@ -71,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
         updateMessenger = null;
         unbindService(serviceConnection);
         Log.i(TAG,"kill plugin process");
-        Process.killProcess(Process.myPid());
+        //Process.killProcess(Process.myPid());
+        setResult(RESULT_OK);
+        finish();
     }
 
     private Messenger updateMessenger = new Messenger(mHandler);

@@ -16,11 +16,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="sdfjk"
-        />
+
+        android:text="new version"/>
 
 </android.support.constraint.ConstraintLayout>
