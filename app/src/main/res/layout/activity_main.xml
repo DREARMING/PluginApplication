@@ -17,10 +17,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
+    <Button
+        android:id="@+id/btKill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="关闭程序"
+        />
 
-        android:text="new version"/>
+    <Button
+        android:id="@+id/btUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="更新插件"
+        app:layout_constraintBottom_toBottomOf="@+id/btKill"
+        app:layout_constraintStart_toEndOf="@+id/btKill"
+        app:layout_constraintTop_toTopOf="@+id/btKill" />
+
+    <Button
+        android:id="@+id/btException"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="异常"
+        app:layout_constraintStart_toEndOf="@+id/btUpdate" />
 
 </android.support.constraint.ConstraintLayout>
